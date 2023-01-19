@@ -68,12 +68,17 @@ END
 //
 
 IDD_DIALOG1 DIALOGEX 0, 0, 235, 95
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Заголовок диалогового окна"
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Загаловок диалогового окна"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,125,74,50,14
     PUSHBUTTON      "E&xit",IDCANCEL,178,74,50,14
+    LTEXT           "Login:",IDC_STATIC,7,7,20,8
+    EDITTEXT        IDC_EDIT_LOGIN,7,16,221,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_PASSWORD,7,53,221,12,ES_AUTOHSCROLL
+    LTEXT           "Password",IDC_STATIC,7,44,32,8
+    PUSHBUTTON      "Copy",IDC_BUTTON_COPY,7,74,50,14
 END
 
 
@@ -105,6 +110,16 @@ IDD_DIALOG1 AFX_DIALOG_LAYOUT
 BEGIN
     0
 END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON1               ICON                    "tool12_122837.ico"
 
 #endif    // Russian (Russia) resources
 /////////////////////////////////////////////////////////////////////////////
