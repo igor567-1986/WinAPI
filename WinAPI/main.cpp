@@ -81,10 +81,49 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		SendMessage(hEditLogin, WM_SETTEXT, 0, (LPARAM)gsz_LOGIN_INVITATION);
 		SendMessage(hEditPassword, WM_SETTEXT, 0, (LPARAM)gsz_PASSWORD_INVITATION);
 	}
-		break;
+	break;
 	case WM_COMMAND:// Обработка команд нажатия кнопок
 		switch (LOWORD(wParam))
 		{
+		case IDC_EDIT_LOGIN:
+		{
+			HWND hEditLogin = GetDlgItem(hwnd, IDC_EDIT_LOGIN);
+			CONST INT SIZE = 256;
+			CHAR sz_buffer[SIZE] = {};
+			if (HIWORD(wParam) == EN_SETFOCUS)
+			{
+				SendMessage(hEditLogin, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
+				if (strcmp(sz_buffer, gsz_LOGIN_INVITATION) == 0)
+					SendMessage(hEditLogin, WM_SETTEXT, 0, (LPARAM)"");
+			}
+			if (HIWORD(wParam) == EN_KILLFOCUS)
+			{
+				SendMessage(hEditLogin, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
+				if (strlen(sz_buffer) == 0)
+					SendMessage(hEditLogin, WM_SETTEXT, 0, (LPARAM)gsz_LOGIN_INVITATION);
+			}
+		}
+		break;
+		case IDC_EDIT_PASSWORD:
+		{
+			HWND hEditPassword = GetDlgItem(hwnd, IDC_EDIT_PASSWORD);
+			CONST INT SIZE = 256;
+			CHAR sz_buffer[SIZE] = {};
+			if (HIWORD(wParam) == EN_SETFOCUS)
+			{
+				SendMessage(hEditPassword, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
+				if (strcmp(sz_buffer, gsz_PASSWORD_INVITATION) == 0)
+					SendMessage(hEditPassword, WM_SETTEXT, 0, (LPARAM)"");
+			}
+			if (HIWORD(wParam) == EN_KILLFOCUS)
+			{
+				SendMessage(hEditPassword, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
+				if (strlen(sz_buffer) == 0)
+					SendMessage(hEditPassword, WM_SETTEXT, 0, (LPARAM)gsz_PASSWORD_INVITATION);
+			}
+		}
+		break;
+
 		case IDC_BUTTON_COPY:
 		{
 			//Создаем буфер ,через который будет производится копирование:
@@ -98,13 +137,13 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			//Загружаем текст из буфера в поле PASSWORD:
 			SendMessage(hEditPassword, WM_SETTEXT, 0, (LPARAM)buffer);
 		}
-			break;
+		break;
 		case IDOK: MessageBox(NULL, "Была нажата кнопка OK", "Info", MB_OK | MB_ICONINFORMATION); break;
 		case IDCANCEL:EndDialog(hwnd, 0);
 		}
 		break;
 	case WM_CLOSE: //Закрытие окна
-		EndDialog(hwnd,0);
+		EndDialog(hwnd, 0);
 	}
 	return FALSE;
 }
