@@ -24,6 +24,11 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		{
 			SendMessage(hCombo, CB_ADDSTRING, 0, (LPARAM)string[i]);
 		}
+		HWND hList = GetDlgItem(hwnd, IDC_LIST3);
+		for (int i = 0; i < sizeof(string) / sizeof(string[0]); i++)
+		{
+			SendMessage(hList, LB_ADDSTRING, 0, (LPARAM)string[i]);
+		}
 	}
 		break;
 	case WM_COMMAND:
@@ -40,6 +45,17 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			sprintf(sz_output_buffer, "Вы выбрали строку № %i со значением \" %s\" ", i, sz_buffer);
 			MessageBox(hwnd, sz_output_buffer, "Selected item", MB_OK | MB_ICONINFORMATION);
 		}
+			break;
+		/*case ID:
+		{
+			CONST INT SIZE = 256;
+			CHAR sz_buffer[SIZE] = {};
+			CHAR sz_output_buffer[SIZE] = "Вы выбрали элемент №";
+			SendMessage(hList, CB_GETLBTEXT, i, (LPARAM)sz_buffer);
+			sprintf(sz_output_buffer, "Вы выбрали строку № %i со значением \" %s\" ", i, sz_buffer);
+			MessageBox(hwnd, sz_output_buffer, "Selected item", MB_OK | MB_ICONINFORMATION);
+		}*/
+			
 			break;
 		case IDCANCEL:EndDialog(hwnd, 0); break;
 
